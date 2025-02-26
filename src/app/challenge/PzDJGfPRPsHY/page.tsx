@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
 // 第四關挑戰頁面
