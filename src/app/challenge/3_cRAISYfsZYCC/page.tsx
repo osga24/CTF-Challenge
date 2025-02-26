@@ -1,44 +1,24 @@
-// src/app/challenge/5/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第五關挑戰頁面
-export default function Challenge5Page() {
-  const level = 5;
+// 第三關挑戰頁面
+export default function Challenge3Page() {
+  const level = 3;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 題目內容
+  // 第三關題目內容
   const challenge = {
-    title: "除錯大師",
-    description: "這是一個有語法錯誤的 Python 程式，修復它並執行，就能獲得正確的 FLAG。",
-    code: `def decrypt_flag():
-    encrypted = [79, 89, 83, 67, 123, 68, 69, 66, 85, 71, 71, 73, 78, 71, 95, 73, 83, 95, 70, 85, 78, 125]
-    flag = ""
-
-    for i in rnage(len(encrypted)):
-        flag += chr(encrypted[i])
-
-    return flag
-
-def main():
-    print("解密 FLAG...")
-    flag = decrypt_flag()
-    if flag.startswith("OYSC"):
-        print("成功！FLAG 是:")
-        print(flag)
-    else
-        print("還有錯誤，繼續除錯！")
-
-if __name__ = "__main__":
-    main()`,
-    hint: "提示: 這個程式中有兩個語法錯誤，修復它們後就能正確執行並顯示 FLAG。",
-    flag: "OYSC{DEBUGGING_IS_FUN}"
+    title: "隱藏的訊息",
+    description: "你發現了一段奇怪的編碼文本，這看起來是使用 Base64 編碼的某種訊息。試著解碼它，找出隱藏的旗幟。\n\n編碼文本: T1lTQ3tCQVNFNjRfSVNfTk9UX0VOQ1JZUFRJT05fQlVUX0VOQ09ESU5HfQ==\n\n提示: 這種編碼方式常用於在純文本環境中傳輸二進制數據。",
+    flag: "OYSC{BASE64_IS_NOT_ENCRYPTION_BUT_ENCODING}",
+    image: "/images/base.png" // 可選的說明圖片
   };
 
   // 自動聚焦輸入框
@@ -61,7 +41,7 @@ if __name__ = "__main__":
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/eMjVGPIewYYR');
+        router.push('/challenge/4_PzDJGfPRPsHY');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -96,21 +76,25 @@ if __name__ = "__main__":
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-6 text-lg font-mono">
-            {challenge.description}
-          </div>
-
-          {/* 代碼區塊 - 使用樣式模擬 Markdown 代碼塊 */}
-          <div className="mb-6 relative">
-            <div className="absolute top-0 left-0 px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-t-md">python</div>
-            <pre className="bg-gray-800 p-4 rounded-md text-white overflow-x-auto font-mono text-sm leading-loose mt-6">
-              <code>{challenge.code}</code>
+          <div className="mb-8">
+            <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
+              {challenge.description}
             </pre>
           </div>
 
-          {/* 提示信息 */}
-          <div className="mb-8 text-yellow-300 italic">
-            {challenge.hint}
+          {/* 圖片區域 */}
+          <div className="mb-10 flex justify-center">
+            {challenge.image && (
+              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
+                <Image
+                  src={challenge.image}
+                  alt="Base64編碼參考圖"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
+                />
+              </div>
+            )}
           </div>
 
           {/* 輸入區域 */}

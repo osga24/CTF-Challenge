@@ -43,7 +43,7 @@ export default function Challenge8Page() {
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/tFwbyvOPpotb');
+        router.push('/challenge/9_tFwbyvOPpotb');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');

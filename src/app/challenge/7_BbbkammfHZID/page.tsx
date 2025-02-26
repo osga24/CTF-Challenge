@@ -1,3 +1,4 @@
+// src/app/challenge/7/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
@@ -5,43 +6,37 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第三關挑戰頁面
-export default function Challenge3Page() {
-  const level = 3;
+export default function Challenge7Page() {
+  const level = 7;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 第三關題目內容
   const challenge = {
-    title: "隱藏的訊息",
-    description: "你發現了一段奇怪的編碼文本，這看起來是使用 Base64 編碼的某種訊息。試著解碼它，找出隱藏的旗幟。\n\n編碼文本: T1lTQ3tCQVNFNjRfSVNfTk9UX0VOQ1JZUFRJT05fQlVUX0VOQ09ESU5HfQ==\n\n提示: 這種編碼方式常用於在純文本環境中傳輸二進制數據。",
-    flag: "OYSC{BASE64_IS_NOT_ENCRYPTION_BUT_ENCODING}",
-    image: "/images/base.png" // 可選的說明圖片
+    title: "視覺密碼學",
+    description: "你截獲了一組神秘的圖片，據說只有將它們正確疊加才能找到隱藏的訊息。黑客留下了一個名為 layer1.png 和 layer2.png 的圖層，試著找出它們的秘密。",
+    flag: "OYSC{V1SU4L_CRYPT0_M4ST3R}"
   };
 
-  // 自動聚焦輸入框
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
 
-  // 處理FLAG提交
+  // 添加 FormEvent 类型注解
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 驗證答案 - 去除頭尾空格後進行比較
     const trimmedInput = userInput.trim();
     const correctFlag = challenge.flag.trim();
 
     if (trimmedInput === correctFlag) {
       setFeedback('恭喜！FLAG正確。正在前往下一關...');
 
-      // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/PzDJGfPRPsHY');
+        router.push('/challenge/8_WCwfbPFLfcdd');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -76,25 +71,57 @@ export default function Challenge3Page() {
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-8">
-            <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
-              {challenge.description}
-            </pre>
+          <div className="mb-8 text-lg font-mono">
+            {challenge.description}
           </div>
 
           {/* 圖片區域 */}
-          <div className="mb-10 flex justify-center">
-            {challenge.image && (
-              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
+          <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 第一張圖 */}
+            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
+              <h3 className="text-center mb-2 text-white font-mono">Layer 1</h3>
+              <div className="relative h-[250px] w-full">
                 <Image
-                  src={challenge.image}
-                  alt="Base64編碼參考圖"
+                  src="/images/layer1.png"
+                  alt="第一層圖片"
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: 'contain' }}
                   className="rounded-lg"
                 />
               </div>
-            )}
+              <div className="text-center mt-2">
+                <a
+                  href="/images/layer1.png"
+                  download="layer1.png"
+                  className="text-blue-400 hover:text-blue-300 text-sm underline"
+                >
+                  下載 layer1.png
+                </a>
+              </div>
+            </div>
+
+            {/* 第二張圖 */}
+            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
+              <h3 className="text-center mb-2 text-white font-mono">Layer 2</h3>
+              <div className="relative h-[250px] w-full">
+                <Image
+                  src="/images/layer2.png"
+                  alt="第二層圖片"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className="rounded-lg"
+                />
+              </div>
+              <div className="text-center mt-2">
+                <a
+                  href="/images/layer2.png"
+                  download="layer2.png"
+                  className="text-blue-400 hover:text-blue-300 text-sm underline"
+                >
+                  下載 layer2.png
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* 輸入區域 */}

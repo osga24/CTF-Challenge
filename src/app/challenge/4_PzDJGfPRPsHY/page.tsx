@@ -1,26 +1,23 @@
-// src/app/challenge/9/page.tsx
+// src/app/challenge/4/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第九關挑戰頁面
-export default function Challenge9Page() {
-  const level = 9;
+// 第四關挑戰頁面
+export default function Challenge4Page() {
+  const level = 4;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 登入平台網址
-  const loginURL = "https://cyber-defender.ohyeahsec.org/"; // 替換為實際的網站URL
-
-  // 題目內容 - 結合之前的世界觀
+  // 第四關題目內容
   const challenge = {
-    title: "守護者的第一道防線",
-    description: "系統監測顯示，入侵者已經突破了多個安全節點。作為數位守護者，你必須迅速找出隱藏的系統弱點。每一個被遺忘的數位足跡都可能成為拯救「新紀元」的關鍵。\n\n監測數據警示：若不能在限定時間內修復所有節點，防火牆將徹底崩潰，數百萬用戶的數據將暴露於黑暗網路中。",
-    flag: "OYSC{R0B0TS_TXT_1S_N0T_4_S3CUR1TY_M3CHANISM}"
+    title: "二進制密語",
+    description: "你攔截到一串二進制密碼，這似乎是某種重要訊息被轉換成二進制表示。請將它轉換回 ASCII 文本，找出隱藏的旗幟。\n\n二進制密碼:\n01001111 01011001 01010011 01000011 01111011 01000010 01001001 01001110 01000001 01010010 01011001 01011111 01010100 01001111 01011111 01000001 01010011 01000011 01001001 01001001 01011111 01001001 01010011 01011111 01000110 01010101 01001110 01111101\n\n提示: 每8位二進制數字代表一個 ASCII 字符。",
+    flag: "OYSC{BINARY_TO_ASCII_IS_FUN}",
   };
 
   // 自動聚焦輸入框
@@ -39,19 +36,20 @@ export default function Challenge9Page() {
     const correctFlag = challenge.flag.trim();
 
     if (trimmedInput === correctFlag) {
-      setFeedback('數據節點修復成功！系統防禦再次穩定...');
+      setFeedback('恭喜！FLAG正確。正在前往下一關...');
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/HmfPsygKVlEX');
+        router.push('/challenge/5_IlXzElXnMclm');
       }, 2000);
     } else {
-      setFeedback('節點修復失敗！系統防禦仍然脆弱...');
+      setFeedback('FLAG不正確，請再試一次。');
       setTimeout(() => {
         setFeedback('');
       }, 3000);
     }
   };
+
   return (
     <div className="relative h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
@@ -77,33 +75,17 @@ export default function Challenge9Page() {
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-8 text-lg font-mono whitespace-pre-line">
-            {challenge.description}
-          </div>
-
-          {/* 網頁登入鏈結 */}
-          <div className="mb-12 flex flex-col items-center">
-            <div className="mb-4 text-xl text-yellow-300 font-semibold">
-              滲透目標:
-            </div>
-            <a
-              href={loginURL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-lg font-bold rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-              <span>進入數位戰場</span>
-            </a>
+          <div className="mb-8">
+            <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
+              {challenge.description}
+            </pre>
           </div>
 
           {/* 輸入區域 */}
           <form onSubmit={handleSubmit} className="mt-8">
             <div className="flex flex-col items-center space-y-4">
               <label htmlFor="flag" className="text-xl font-semibold">
-                輸入節點修復金鑰:
+                輸入FLAG:
               </label>
               <input
                 ref={inputRef}
@@ -112,7 +94,7 @@ export default function Challenge9Page() {
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 className="w-full max-w-lg px-4 py-3 bg-gray-800 border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                placeholder="輸入修復金鑰..."
+                placeholder="輸入你的答案..."
                 spellCheck="false"
                 autoComplete="off"
               />
@@ -120,12 +102,12 @@ export default function Challenge9Page() {
                 type="submit"
                 className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white text-lg font-bold rounded-lg hover:from-purple-700 hover:to-blue-600 transition-all duration-300 transform hover:scale-105"
               >
-                啟動修復
+                提交
               </button>
 
               {/* 反饋信息 */}
               {feedback && (
-                <div className={`mt-4 px-6 py-3 rounded-lg ${feedback.includes('成功') ? 'bg-green-700/50' : 'bg-red-700/50'}`}>
+                <div className={`mt-4 px-6 py-3 rounded-lg ${feedback.includes('恭喜') ? 'bg-green-700/50' : 'bg-red-700/50'}`}>
                   {feedback}
                 </div>
               )}
@@ -136,7 +118,7 @@ export default function Challenge9Page() {
 
       {/* 底部信息 */}
       <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
-        © 2025 OhYeahSeC Challenge - 數位守護者
+        © 2025 OhYeahSeC Challenge
       </div>
     </div>
   );

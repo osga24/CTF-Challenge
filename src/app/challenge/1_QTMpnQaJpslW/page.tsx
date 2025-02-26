@@ -1,4 +1,4 @@
-// src/app/challenge/2/page.tsx
+// src/app/challenge/10/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
@@ -6,20 +6,19 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第一關挑戰頁面
-export default function Challenge1Page() {
-  const level = 1;
+// 第十關挑戰頁面 - 最終關卡
+export default function Challenge10Page() {
+  const level = 10;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 第一關題目內容
+  // 題目內容
   const challenge = {
-    title: "凱薩的秘密",
-    description: "你截獲了一段加密的通訊訊息，並且發現了一張照片，不知道跟這串密文是否有關聯。\n\n密文: DNHR{RPTHPG_RXEWTG_GDI_UXUIC}",
-    flag: "OYSC{CAESAR_CIPHER_ROT_FIFTN}",
-    image: "/images/caesar.png" // 圖片路徑，你需要將圖片放在 public/images/ 目錄下
+    title: "最後的挑戰",
+    description: "恭喜你到達最終關卡！在這最後的挑戰中，你將運用你的社交媒體搜索技巧。請查看下方照片，找出這個人的Instagram帳號，並提交作為最終的FLAG。",
+    flag: "your_instagram_username" // 替換為你的Instagram用戶名
   };
 
   // 自動聚焦輸入框
@@ -34,18 +33,18 @@ export default function Challenge1Page() {
     e.preventDefault();
 
     // 驗證答案 - 去除頭尾空格後進行比較
-    const trimmedInput = userInput.trim();
-    const correctFlag = challenge.flag.trim();
+    const trimmedInput = userInput.trim().toLowerCase();
+    const correctFlag = challenge.flag.trim().toLowerCase();
 
     if (trimmedInput === correctFlag) {
-      setFeedback('恭喜！FLAG正確。正在前往下一關...');
+      setFeedback('恭喜！你已完成所有挑戰！正在前往完成頁面...');
 
-      // 延遲跳轉到下一關
+      // 延遲跳轉到完成頁面
       setTimeout(() => {
-        router.push('/challenge/cRAISYfsZYCC');
+        router.push('/challenge/complete');
       }, 2000);
     } else {
-      setFeedback('FLAG不正確，請再試一次。');
+      setFeedback('用戶名不正確，請再試一次。');
       setTimeout(() => {
         setFeedback('');
       }, 3000);
@@ -77,47 +76,48 @@ export default function Challenge1Page() {
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-8">
+          <div className="mb-8 text-lg font-mono">
             <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
               {challenge.description}
             </pre>
           </div>
-
-          {/* 圖片區域 */}
+          
+          {/* 照片區域 */}
           <div className="mb-10 flex justify-center">
-            {challenge.image && (
-              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
-                <Image
-                  src={challenge.image}
-                  alt="凱薩密碼參考圖"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-lg"
-                />
-              </div>
-            )}
+            <div className="relative w-full max-w-md h-[400px] overflow-hidden rounded-lg border-2 border-purple-500/30">
+              <Image
+                src="/images/profile-photo.jpg" // 請將照片放在 public/images/ 目錄下
+                alt="個人照片"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg"
+              />
+            </div>
           </div>
 
           {/* 輸入區域 */}
           <form onSubmit={handleSubmit} className="mt-8">
             <div className="flex flex-col items-center space-y-4">
               <label htmlFor="flag" className="text-xl font-semibold">
-                輸入FLAG:
+                輸入Instagram用戶名:
               </label>
-              <input
-                ref={inputRef}
-                type="text"
-                id="flag"
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                className="w-full max-w-lg px-4 py-3 bg-gray-800 border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                placeholder="輸入你的答案..."
-                spellCheck="false"
-                autoComplete="off"
-              />
+              <div className="relative w-full max-w-lg">
+                <span className="absolute left-4 top-3 text-gray-400">@</span>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  id="flag"
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
+                  className="w-full px-10 py-3 bg-gray-800 border border-purple-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                  placeholder="Instagram用戶名..."
+                  spellCheck="false"
+                  autoComplete="off"
+                />
+              </div>
               <button
                 type="submit"
-                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white text-lg font-bold rounded-lg hover:from-purple-700 hover:to-blue-600 transition-all duration-300 transform hover:scale-105"
+                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-lg font-bold rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
               >
                 提交
               </button>

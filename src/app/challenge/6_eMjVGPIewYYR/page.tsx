@@ -63,7 +63,7 @@ export default function Challenge6Page() {
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/BbbkammfHZID');
+        router.push('/challenge/7_BbbkammfHZID');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');

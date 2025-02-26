@@ -16,10 +16,10 @@ export default function StoryPage() {
   const [typedTitle, setTypedTitle] = useState('');
   const [typedContent, setTypedContent] = useState('');
   const [isTypingContent, setIsTypingContent] = useState(false);
-  
+
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const contentTypingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const router = useRouter();
 
   const storyPages: StoryPage[] = [
@@ -117,12 +117,12 @@ export default function StoryPage() {
     if (currentPage < storyPages.length - 1) {
       setCurrentPage(currentPage + 1);
     } else {
-      router.push('/challenge/QTMpnQaJpslW');
+      router.push('/challenge/1_QTMpnQaJpslW');
     }
   };
 
   const handleSkip = () => {
-    router.push('/challenge/QTMpnQaJpslW');
+    router.push('/challenge/1_QTMpnQaJpslW');
   };
 
   return (

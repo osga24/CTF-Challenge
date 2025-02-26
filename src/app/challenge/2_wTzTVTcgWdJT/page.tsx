@@ -1,23 +1,25 @@
-// src/app/challenge/4/page.tsx
+// src/app/challenge/2/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第四關挑戰頁面
-export default function Challenge4Page() {
-  const level = 4;
+// 第一關挑戰頁面
+export default function Challenge1Page() {
+  const level = 1;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 第四關題目內容
+  // 第一關題目內容
   const challenge = {
-    title: "二進制密語",
-    description: "你攔截到一串二進制密碼，這似乎是某種重要訊息被轉換成二進制表示。請將它轉換回 ASCII 文本，找出隱藏的旗幟。\n\n二進制密碼:\n01001111 01011001 01010011 01000011 01111011 01000010 01001001 01001110 01000001 01010010 01011001 01011111 01010100 01001111 01011111 01000001 01010011 01000011 01001001 01001001 01011111 01001001 01010011 01011111 01000110 01010101 01001110 01111101\n\n提示: 每8位二進制數字代表一個 ASCII 字符。",
-    flag: "OYSC{BINARY_TO_ASCII_IS_FUN}",
+    title: "凱薩的秘密",
+    description: "你截獲了一段加密的通訊訊息，並且發現了一張照片，不知道跟這串密文是否有關聯。\n\n密文: DNHR{RPTHPG_RXEWTG_GDI_UXUIC}",
+    flag: "OYSC{CAESAR_CIPHER_ROT_FIFTN}",
+    image: "/images/caesar.png" // 圖片路徑，你需要將圖片放在 public/images/ 目錄下
   };
 
   // 自動聚焦輸入框
@@ -40,7 +42,7 @@ export default function Challenge4Page() {
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/IlXzElXnMclm');
+        router.push('/challenge/3_cRAISYfsZYCC');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -54,7 +56,7 @@ export default function Challenge4Page() {
     <div className="relative h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
       <div className="absolute inset-0 opacity-20">
-      <LetterGlitch
+        <LetterGlitch
           glitchColors={['#1a3b4c', '#4dc3a1', '#3498db']}
           glitchSpeed={50}
           centerVignette={false}
@@ -79,6 +81,21 @@ export default function Challenge4Page() {
             <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
               {challenge.description}
             </pre>
+          </div>
+
+          {/* 圖片區域 */}
+          <div className="mb-10 flex justify-center">
+            {challenge.image && (
+              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
+                <Image
+                  src={challenge.image}
+                  alt="凱薩密碼參考圖"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg"
+                />
+              </div>
+            )}
           </div>
 
           {/* 輸入區域 */}

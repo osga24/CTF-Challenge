@@ -1,42 +1,67 @@
-// src/app/challenge/7/page.tsx
+// src/app/challenge/5/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-export default function Challenge7Page() {
-  const level = 7;
+// 第五關挑戰頁面
+export default function Challenge5Page() {
+  const level = 5;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  // 題目內容
   const challenge = {
-    title: "視覺密碼學",
-    description: "你截獲了一組神秘的圖片，據說只有將它們正確疊加才能找到隱藏的訊息。黑客留下了一個名為 layer1.png 和 layer2.png 的圖層，試著找出它們的秘密。",
-    flag: "OYSC{V1SU4L_CRYPT0_M4ST3R}"
+    title: "除錯大師",
+    description: "這是一個有語法錯誤的 Python 程式，修復它並執行，就能獲得正確的 FLAG。",
+    code: `def decrypt_flag():
+    encrypted = [79, 89, 83, 67, 123, 68, 69, 66, 85, 71, 71, 73, 78, 71, 95, 73, 83, 95, 70, 85, 78, 125]
+    flag = ""
+
+    for i in rnage(len(encrypted)):
+        flag += chr(encrypted[i])
+
+    return flag
+
+def main():
+    print("解密 FLAG...")
+    flag = decrypt_flag()
+    if flag.startswith("OYSC"):
+        print("成功！FLAG 是:")
+        print(flag)
+    else
+        print("還有錯誤，繼續除錯！")
+
+if __name__ = "__main__":
+    main()`,
+    hint: "提示: 這個程式中有兩個語法錯誤，修復它們後就能正確執行並顯示 FLAG。",
+    flag: "OYSC{DEBUGGING_IS_FUN}"
   };
 
+  // 自動聚焦輸入框
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
 
-  // 添加 FormEvent 类型注解
+  // 處理FLAG提交
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 驗證答案 - 去除頭尾空格後進行比較
     const trimmedInput = userInput.trim();
     const correctFlag = challenge.flag.trim();
 
     if (trimmedInput === correctFlag) {
       setFeedback('恭喜！FLAG正確。正在前往下一關...');
 
+      // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/WCwfbPFLfcdd');
+        router.push('/challenge/6_eMjVGPIewYYR');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -71,57 +96,21 @@ export default function Challenge7Page() {
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-8 text-lg font-mono">
+          <div className="mb-6 text-lg font-mono">
             {challenge.description}
           </div>
 
-          {/* 圖片區域 */}
-          <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 第一張圖 */}
-            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
-              <h3 className="text-center mb-2 text-white font-mono">Layer 1</h3>
-              <div className="relative h-[250px] w-full">
-                <Image
-                  src="/images/layer1.png"
-                  alt="第一層圖片"
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  className="rounded-lg"
-                />
-              </div>
-              <div className="text-center mt-2">
-                <a
-                  href="/images/layer1.png"
-                  download="layer1.png"
-                  className="text-blue-400 hover:text-blue-300 text-sm underline"
-                >
-                  下載 layer1.png
-                </a>
-              </div>
-            </div>
+          {/* 代碼區塊 - 使用樣式模擬 Markdown 代碼塊 */}
+          <div className="mb-6 relative">
+            <div className="absolute top-0 left-0 px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-t-md">python</div>
+            <pre className="bg-gray-800 p-4 rounded-md text-white overflow-x-auto font-mono text-sm leading-loose mt-6">
+              <code>{challenge.code}</code>
+            </pre>
+          </div>
 
-            {/* 第二張圖 */}
-            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
-              <h3 className="text-center mb-2 text-white font-mono">Layer 2</h3>
-              <div className="relative h-[250px] w-full">
-                <Image
-                  src="/images/layer2.png"
-                  alt="第二層圖片"
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  className="rounded-lg"
-                />
-              </div>
-              <div className="text-center mt-2">
-                <a
-                  href="/images/layer2.png"
-                  download="layer2.png"
-                  className="text-blue-400 hover:text-blue-300 text-sm underline"
-                >
-                  下載 layer2.png
-                </a>
-              </div>
-            </div>
+          {/* 提示信息 */}
+          <div className="mb-8 text-yellow-300 italic">
+            {challenge.hint}
           </div>
 
           {/* 輸入區域 */}
