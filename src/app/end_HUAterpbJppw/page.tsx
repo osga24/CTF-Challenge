@@ -1,7 +1,7 @@
 // src/app/challenge/end_HUAterpbJppw/page.tsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../components/LetterGlitch';
 import Confetti from 'react-confetti';
@@ -15,6 +15,7 @@ export default function ChallengeCompletePage() {
   const [buttonVisible, setButtonVisible] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const router = useRouter();
+  const confettiRef = useRef(null); // 添加這行解決未使用的 useRef 問題
 
   // 監聽視窗大小變化
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function ChallengeCompletePage() {
   `;
 
   // 打字機效果的文字
-const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的競賽再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
+  const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的世界裡再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
 
   // 打字機效果和動畫序列
   useEffect(() => {
