@@ -4,7 +4,7 @@ import LetterGlitch from '@/app/components/LetterGlitch';
 import CharBlurText from '@/app/components/CharBlurText';
 import { useRouter } from 'next/navigation';
 
-export default function page() {
+export default function Page() {  // 修改 page 为 Page
   const [showButton, setShowButton] = useState(false);
   const router = useRouter();
 
@@ -72,4 +72,3 @@ export default function page() {
     </div>
   );
 }
-
