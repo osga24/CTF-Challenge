@@ -14,7 +14,7 @@ export default function Challenge9Page() {
   const router = useRouter();
 
   // 登入平台網址
-  const loginURL = "https://new-era-digital-challenge.vercel.app"; // 替換為實際的網站URL
+  const loginURL = "https://cyber-defender.ohyeahsec.org/"; // 替換為實際的網站URL
 
   // 題目內容 - 結合之前的世界觀
   const challenge = {

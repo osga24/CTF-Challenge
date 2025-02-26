@@ -12,20 +12,20 @@ const CharBlurText = ({
   charClassName?: string; 
   animationDelay?: number;
 }) => {
-  const [clearChars, setClearChars] = useState<string[]>([]);
+  const [clearChars, setClearChars] = useState<number[]>([]);
 
   useEffect(() => {
     if (text) {
       const chars = text.split('');
       const timer = setTimeout(() => {
-        let currentIndex = 0;
         const revealInterval = setInterval(() => {
-          if (currentIndex < chars.length) {
-            setClearChars(prev => [...prev, chars[currentIndex]]);
-            currentIndex++;
-          } else {
+          setClearChars(prev => {
+            if (prev.length < chars.length) {
+              return [...prev, prev.length];
+            }
             clearInterval(revealInterval);
-          }
+            return prev;
+          });
         }, 50);
 
         return () => {
@@ -48,8 +48,9 @@ const CharBlurText = ({
             inline-block 
             transition-all 
             duration-300 
-            ${clearChars.includes(char) ? 'opacity-100' : 'opacity-0 blur-lg'}
+            ${clearChars.includes(index) ? 'opacity-100' : 'opacity-0 blur-lg'}
             ${charClassName}
+            ${char === ' ' ? 'mr-2' : ''}
           `}
         >
           {char}
