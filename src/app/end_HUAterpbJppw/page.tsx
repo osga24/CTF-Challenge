@@ -1,7 +1,7 @@
 // src/app/challenge/complete/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../components/LetterGlitch';
 
@@ -37,7 +37,7 @@ export default function ChallengeCompletePage() {
   `;
 
   // 打字機效果的文字
-  const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的競賽裡再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
+  const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的世界裡再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
 
   // 初始化星星 - 只在客戶端執行一次
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function ChallengeCompletePage() {
                 <p>成功完成 <span className="text-yellow-200 font-semibold">OhYeahSeC CTF Challenge</span> 的所有關卡</p>
                 <p>完成時間：<span className="text-yellow-200 font-semibold">{new Date().toLocaleDateString()}</span></p>
                 <div className="pt-4 border-t border-yellow-500/30 mt-4">
-                  <p className="italic text-yellow-100/70">"知識是防禦的第一道防線，好奇心是進步的原動力"</p>
+                  <p className="italic text-yellow-100/70">&ldquo;知識是防禦的第一道防線，好奇心是進步的原動力&rdquo;</p>
                 </div>
               </div>
             </div>
