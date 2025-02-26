@@ -1,9 +1,10 @@
 // src/app/challenge/end_HUAterpbJppw/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../components/LetterGlitch';
+import Confetti from 'react-confetti';
 
 // 挑戰完成頁面
 export default function ChallengeCompletePage() {
@@ -12,9 +13,27 @@ export default function ChallengeCompletePage() {
   const [cakeVisible, setCakeVisible] = useState(false);
   const [certificateVisible, setCertificateVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
-  const [stars, setStars] = useState([]);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const router = useRouter();
-  const scrollRef = useRef(null); // 添加這一行以解決未使用的 useRef 問題
+
+  // 監聽視窗大小變化
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight
+      });
+    };
+
+    // 初次設定
+    handleResize();
+
+    // 添加監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理監聽器
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // ASCII 蛋糕圖案（增強版）
   const asciiCake = `
@@ -38,31 +57,7 @@ export default function ChallengeCompletePage() {
   `;
 
   // 打字機效果的文字
-  const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的世界裡再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
-
-  // 初始化星星 - 只在客戶端執行一次
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // 確保這只在瀏覽器環境中執行
-      const generateStars = () => {
-        const newStars = [];
-        for (let i = 0; i < 50; i++) {
-          newStars.push({
-            id: i,
-            width: 2 + Math.random() * 3,
-            height: 1 + Math.random() * 3,
-            left: Math.random() * 100,
-            top: Math.random() * 100,
-            opacity: 0.3 + Math.random() * 0.7,
-            duration: 2 + Math.random() * 3
-          });
-        }
-        setStars(newStars);
-      };
-
-      generateStars();
-    }
-  }, []);
+const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段代碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的競賽再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
 
   // 打字機效果和動畫序列
   useEffect(() => {
@@ -91,6 +86,7 @@ export default function ChallengeCompletePage() {
   const handleGoHome = () => {
     router.push('/');
   };
+
   return (
     <div className="relative min-h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
@@ -104,23 +100,24 @@ export default function ChallengeCompletePage() {
         />
       </div>
 
-      {/* 動態星星背景 - 客戶端渲染 */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {stars.map((star) => (
-          <div
-            key={star.id}
-            className="absolute rounded-full bg-white animate-pulse"
-            style={{
-              width: `${star.width}px`,
-              height: `${star.height}px`,
-              left: `${star.left}%`,
-              top: `${star.top}%`,
-              opacity: star.opacity,
-              animationDuration: `${star.duration}s`
-            }}
-          ></div>
-        ))}
-      </div>
+      {/* 五彩紙屑效果 - 全螢幕覆蓋 */}
+      <Confetti
+        className="fixed z-50"
+        width={windowSize.width}
+        height={windowSize.height}
+        numberOfPieces={buttonVisible ? 500 : 0}
+        recycle={false}
+        run={buttonVisible}
+        colors={['#4dc3a1', '#3498db', '#9b59b6', '#f1c40f', '#e74c3c']}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 50
+        }}
+      />
 
       {/* 內容區域 */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-10 px-4">
