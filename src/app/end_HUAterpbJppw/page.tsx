@@ -1,7 +1,7 @@
 // src/app/challenge/end_HUAterpbJppw/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../components/LetterGlitch';
 import Confetti from 'react-confetti';
@@ -15,9 +15,8 @@ export default function ChallengeCompletePage() {
   const [buttonVisible, setButtonVisible] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const router = useRouter();
-  const confettiRef = useRef<HTMLDivElement>(null); // 修复 useRef 未使用的问题
 
-  // 监听视窗大小变化
+  // 監聽視窗大小變化
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -26,17 +25,17 @@ export default function ChallengeCompletePage() {
       });
     };
 
-    // 初次设定
+    // 初次設定
     handleResize();
 
-    // 添加监听器
+    // 添加監聽器
     window.addEventListener('resize', handleResize);
 
-    // 清理监听器
+    // 清理監聽器
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // ASCII 蛋糕图案（增强版）
+  // ASCII 蛋糕圖案（增強版）
   const asciiCake = `
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢔⠊⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣳⣶⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -57,13 +56,13 @@ export default function ChallengeCompletePage() {
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡿⠀⠀⠀⠀⣿
 `;
 
-  // 打字机效果的文字
-  const finalMessage = "恭喜你完成了所有的挑战！你的毅力和技术能力令人印象深刻。这只是你资安旅程的起点，世界上还有更多谜题等待你解开。资讯安全是一场永无止境的探索，每一个漏洞、每一段代码都蕴含着新的知识。希望这次的挑战能够点燃你对资安的热情，无论是CTF竞赛、渗透测试，还是系统防御，都有你大展身手的舞台。持续学习，保持好奇，也许未来的某一天，我们能在资安的世界里再次相遇。愿你在这条充满挑战的道路上，不断成长，不断超越自己！";
+  // 打字機效果的文字
+  const finalMessage = "恭喜你完成了所有的挑戰！你的毅力和技術能力令人印象深刻。這只是你資安旅程的起點，世界上還有更多謎題等待你解開。資訊安全是一場永無止境的探索，每一個漏洞、每一段程式碼都蘊含著新的知識。希望這次的挑戰能夠點燃你對資安的熱情，無論是CTF競賽、滲透測試，還是系統防禦，都有你大展身手的舞台。持續學習，保持好奇，也許未來的某一天，我們能在資安的世界裡再次相遇。願你在這條充滿挑戰的道路上，不斷成長，不斷超越自己！";
 
-  // 打字机效果和动画序列
+  // 打字機效果和動畫序列
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // 显示动画序列
+      // 顯示動畫序列
       setTimeout(() => setCongratsVisible(true), 500);
       setTimeout(() => setCakeVisible(true), 1500);
 
@@ -83,7 +82,7 @@ export default function ChallengeCompletePage() {
     }
   }, []);
 
-  // 处理回到首页
+  // 處理回到首頁
   const handleGoHome = () => {
     router.push('/');
   };
@@ -101,9 +100,8 @@ export default function ChallengeCompletePage() {
         />
       </div>
 
-      {/* 五彩纸屑效果 - 全屏覆盖 */}
+      {/* 五彩紙屑效果 - 全螢幕覆蓋 */}
       <Confetti
-        ref={confettiRef} // 添加 ref
         className="fixed z-50"
         width={windowSize.width}
         height={windowSize.height}
@@ -121,9 +119,9 @@ export default function ChallengeCompletePage() {
         }}
       />
 
-      {/* 内容区域 */}
+      {/* 內容區域 */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-10 px-4">
-        {/* 标题区域 */}
+        {/* 標題區域 */}
         <div
           className={`w-full max-w-4xl py-6 bg-gradient-to-r from-purple-900/70 via-blue-800/70 to-purple-900/70 text-center mb-8 rounded-xl transform transition-all duration-1000 ${
             congratsVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -134,7 +132,7 @@ export default function ChallengeCompletePage() {
           </h1>
         </div>
 
-        {/* 内容区域 */}
+        {/* 內容區域 */}
         <div className="w-full max-w-4xl bg-gradient-to-b from-gray-900/90 to-black/90 rounded-2xl shadow-[0_0_15px_rgba(138,43,226,0.5)] backdrop-blur-sm overflow-hidden">
           {/* ASCII蛋糕 */}
           <div
@@ -147,7 +145,7 @@ export default function ChallengeCompletePage() {
             </pre>
           </div>
 
-          {/* 打字机效果讯息 */}
+          {/* 打字機效果訊息 */}
           <div className="px-6 sm:px-12 py-6 text-center">
             <p className="text-lg sm:text-xl text-cyan-100 leading-relaxed font-mono relative">
               <span className="relative z-10">{typedText}</span>
@@ -155,13 +153,13 @@ export default function ChallengeCompletePage() {
             </p>
           </div>
 
-          {/* 证书区域 */}
+          {/* 證書區域 */}
           <div
             className={`m-8 p-8 border-4 border-double border-yellow-500/70 rounded-lg bg-black/70 transform transition-all duration-1000 relative overflow-hidden ${
               certificateVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            {/* 装饰性元素 */}
+            {/* 裝飾性元素 */}
             <div className="absolute -top-16 -left-16 w-32 h-32 border-r-4 border-b-4 border-yellow-500/30 rounded-br-full"></div>
             <div className="absolute -bottom-16 -right-16 w-32 h-32 border-l-4 border-t-4 border-yellow-500/30 rounded-tl-full"></div>
 
@@ -170,15 +168,15 @@ export default function ChallengeCompletePage() {
               <div className="text-center space-y-4">
                 <p className="text-lg">授予 <span className="text-yellow-200 font-semibold">勇敢的挑戰者</span></p>
                 <p>成功完成 <span className="text-yellow-200 font-semibold">OhYeahSeC CTF Challenge</span> 的所有關卡</p>
-                <p>完成时间：<span className="text-yellow-200 font-semibold">{new Date().toLocaleDateString()}</span></p>
+                <p>完成時間：<span className="text-yellow-200 font-semibold">{new Date().toLocaleDateString()}</span></p>
                 <div className="pt-4 border-t border-yellow-500/30 mt-4">
-                  <p className="italic text-yellow-100/70">知識是防御的第一道防線，好奇心是進步的原動力</p>
+                  <p className="italic text-yellow-100/70">知識是防禦的第一道防線，好奇心是進步的原動力</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 返回按钮 */}
+          {/* 返回按鈕 */}
           <div
             className={`flex justify-center pb-10 transform transition-all duration-1000 ${
               buttonVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -194,7 +192,7 @@ export default function ChallengeCompletePage() {
         </div>
       </div>
 
-      {/* 底部信息 */}
+      {/* 底部資訊 */}
       <div className="relative text-center text-white/50 pb-6">
         © 2025 OhYeahSeC Challenge
       </div>
