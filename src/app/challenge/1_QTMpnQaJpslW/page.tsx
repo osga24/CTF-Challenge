@@ -117,5 +117,9 @@ export default function Challenge1Page() {
       </div>
 
       {/* 底部信息 */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
+        © 2025 OhYeahSeC Challenge
+      </div>
     </div>
   );
+}
