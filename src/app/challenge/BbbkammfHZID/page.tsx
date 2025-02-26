@@ -50,7 +50,13 @@ export default function Challenge7Page() {
     <div className="relative h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
       <div className="absolute inset-0 opacity-20">
-        <LetterGlitch />
+      <LetterGlitch
+          glitchColors={['#1a3b4c', '#4dc3a1', '#3498db']}
+          glitchSpeed={50}
+          centerVignette={false}
+          outerVignette={true}
+          smooth={true}
+        />
       </div>
 
       {/* 內容區域 */}

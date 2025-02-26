@@ -15,24 +15,24 @@ export default function StoryPage() {
   const contentTypingIntervalRef = useRef(null);
   const router = useRouter();
 
-const storyPages = [
-  {
-    title: "數位世界的警報",
-    content: "在虛擬網域「新紀元」中，一個神秘的系統警報突然在你的介面上彈出。警報顯示核心數據庫遭到入侵，多個安全節點已被攻破，整個虛擬世界的穩定性面臨嚴重威脅。"
-  },
-  {
-    title: "守護者的挑戰",
-    content: "作為具備高級權限的數位守護者，系統自動將你傳送到安全測試區域。只有通過一系列資安挑戰，你才能獲得修復受損節點的加密金鑰。"
-  },
-  {
-    title: "數位崩壞的威脅",
-    content: "監測數據顯示，若不能在限定時間內修復所有節點，「新紀元」的防火牆將徹底崩潰，數百萬用戶的數據將暴露於黑暗網路中。你是最後的希望。"
-  },
-  {
-    title: "挑戰啟動",
-    content: "第一個安全測試已準備就緒。系統將評估你的加密破解、代碼分析和漏洞識別能力。每完成一個挑戰，就能恢復一個安全節點的運作。\n\n虛擬世界的命運掌握在你手中。你準備好接受挑戰了嗎？"
-  }
-];
+  const storyPages = [
+    {
+      title: "數位世界的警報",
+      content: "在虛擬網域「新紀元」中，一個神秘的系統警報突然在你的介面上彈出。警報顯示核心數據庫遭到入侵，多個安全節點已被攻破，整個虛擬世界的穩定性面臨嚴重威脅。"
+    },
+    {
+      title: "守護者的挑戰",
+      content: "作為具備高級權限的數位守護者，系統自動將你傳送到安全測試區域。只有通過一系列資安挑戰，你才能獲得修復受損節點的加密金鑰。"
+    },
+    {
+      title: "數位崩壞的威脅",
+      content: "監測數據顯示，若不能在限定時間內修復所有節點，「新紀元」的防火牆將徹底崩潰，數百萬用戶的數據將暴露於黑暗網路中。你是最後的希望。"
+    },
+    {
+      title: "挑戰啟動",
+      content: "第一個安全測試已準備就緒。系統將評估你的加密破解、代碼分析和漏洞識別能力。每完成一個挑戰，就能恢復一個安全節點的運作。\n\n虛擬世界的命運掌握在你手中。你準備好接受挑戰了嗎？"
+    }
+  ];
   // 目前顯示的故事頁面
   const currentStory = storyPages[currentPage];
 
@@ -123,7 +123,13 @@ const storyPages = [
     <div className="relative h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
       <div className="absolute inset-0 opacity-20">
-        <LetterGlitch />
+        <LetterGlitch
+          glitchColors={['#1a3b4c', '#4dc3a1', '#3498db']}
+          glitchSpeed={50}
+          centerVignette={false}
+          outerVignette={true}
+          smooth={true}
+        />
       </div>
 
       {/* 漸變背景疊加層 */}
