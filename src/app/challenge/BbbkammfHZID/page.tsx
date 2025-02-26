@@ -1,23 +1,24 @@
-// src/app/challenge/1/page.tsx
+// src/app/challenge/7/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第一關挑戰頁面
-export default function Challenge1Page() {
-  const level = 1;
+// 第七關挑戰頁面
+export default function Challenge7Page() {
+  const level = 7;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef(null);
   const router = useRouter();
 
-  // 第一關題目內容
+  // 題目內容
   const challenge = {
-    title: "目標",
-    description: "你的目標是接受每一關的挑戰，並從挑戰中找出旗幟(FLAG)，通常他們的樣式會為 OYSC{*.}\n\n就像是這隻 OYSC{Welcome_to_CTF_World}\n\n輸入 FLAG 進入下一關",
-    flag: "OYSC{Welcome_to_CTF_World}"
+    title: "視覺密碼學",
+    description: "你截獲了一組神秘的圖片，據說只有將它們正確疊加才能找到隱藏的訊息。黑客留下了一個名為 layer1.png 和 layer2.png 的圖層，試著找出它們的秘密。",
+    flag: "OYSC{V1SU4L_CRYPT0_M4ST3R}" // 確保這與隱藏在圖片中的FLAG一致
   };
 
   // 自動聚焦輸入框
@@ -40,7 +41,7 @@ export default function Challenge1Page() {
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/2');
+        router.push('/challenge/WCwfbPFLfcdd');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -58,7 +59,7 @@ export default function Challenge1Page() {
       </div>
 
       {/* 內容區域 */}
-      <div className="relative z-10 h-full flex flex-col items-center">
+      <div className="relative z-10 h-full flex flex-col items-center overflow-y-auto">
         {/* 標題區域 */}
         <div className="w-full py-4 bg-gradient-to-r from-purple-900/50 to-blue-900/50 text-center mb-8">
           <h1 className="text-3xl font-bold">
@@ -67,12 +68,59 @@ export default function Challenge1Page() {
         </div>
 
         {/* 內容區域 */}
-        <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto">
-          {/* 題目描述 - 修正排版 */}
-          <div className="mb-10 min-h-[200px]">
-            <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
-              {challenge.description}
-            </pre>
+        <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
+          {/* 題目描述 */}
+          <div className="mb-8 text-lg font-mono">
+            {challenge.description}
+          </div>
+
+          {/* 圖片區域 */}
+          <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 第一張圖 */}
+            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
+              <h3 className="text-center mb-2 text-white font-mono">Layer 1</h3>
+              <div className="relative h-[250px] w-full">
+                <Image
+                  src="/images/layer1.png"
+                  alt="第一層圖片"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className="rounded-lg"
+                />
+              </div>
+              <div className="text-center mt-2">
+                <a
+                  href="/images/layer1.png"
+                  download="layer1.png"
+                  className="text-blue-400 hover:text-blue-300 text-sm underline"
+                >
+                  下載 layer1.png
+                </a>
+              </div>
+            </div>
+
+            {/* 第二張圖 */}
+            <div className="bg-black p-2 border border-purple-500/30 rounded-lg">
+              <h3 className="text-center mb-2 text-white font-mono">Layer 2</h3>
+              <div className="relative h-[250px] w-full">
+                <Image
+                  src="/images/layer2.png"
+                  alt="第二層圖片"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className="rounded-lg"
+                />
+              </div>
+              <div className="text-center mt-2">
+                <a
+                  href="/images/layer2.png"
+                  download="layer2.png"
+                  className="text-blue-400 hover:text-blue-300 text-sm underline"
+                >
+                  下載 layer2.png
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* 輸入區域 */}
@@ -111,6 +159,9 @@ export default function Challenge1Page() {
       </div>
 
       {/* 底部信息 */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
+        © 2025 OhYeahSeC Challenge
+      </div>
     </div>
   );
 }

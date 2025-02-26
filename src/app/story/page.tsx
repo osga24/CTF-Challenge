@@ -110,13 +110,13 @@ const storyPages = [
       setCurrentPage(currentPage + 1);
     } else {
       // 如果是最後一頁，則跳轉到第一個挑戰
-      router.push('/challenge/1');
+      router.push('/challenge/QTMpnQaJpslW');
     }
   };
 
   // 處理跳過故事
   const handleSkip = () => {
-    router.push('/challenge/1');
+    router.push('/challenge/QTMpnQaJpslW');
   };
 
   return (

@@ -1,25 +1,44 @@
-// src/app/challenge/2/page.tsx
+// src/app/challenge/5/page.tsx
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第一關挑戰頁面
-export default function Challenge1Page() {
-  const level = 1;
+// 第五關挑戰頁面
+export default function Challenge5Page() {
+  const level = 5;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef(null);
   const router = useRouter();
 
-  // 第一關題目內容
+  // 題目內容
   const challenge = {
-    title: "凱薩的秘密",
-    description: "你截獲了一段加密的通訊訊息，並且發現了一張照片，不知道跟這串密文是否有關聯。\n\n密文: DNTX{XPTNPG_NWXDTPI_EWT_SPXPZ}",
-    flag: "OYSC{CAESAR_CIPHER_ROT_FIFTN}",
-    image: "/images/caesar.png" // 圖片路徑，你需要將圖片放在 public/images/ 目錄下
+    title: "除錯大師",
+    description: "這是一個有語法錯誤的 Python 程式，修復它並執行，就能獲得正確的 FLAG。",
+    code: `def decrypt_flag():
+    encrypted = [79, 89, 83, 67, 123, 68, 69, 66, 85, 71, 71, 73, 78, 71, 95, 73, 83, 95, 70, 85, 78, 125]
+    flag = ""
+
+    for i in rnage(len(encrypted)):
+        flag += chr(encrypted[i])
+
+    return flag
+
+def main():
+    print("解密 FLAG...")
+    flag = decrypt_flag()
+    if flag.startswith("OYSC"):
+        print("成功！FLAG 是:")
+        print(flag)
+    else
+        print("還有錯誤，繼續除錯！")
+
+if __name__ = "__main__":
+    main()`,
+    hint: "提示: 這個程式中有兩個語法錯誤，修復它們後就能正確執行並顯示 FLAG。",
+    flag: "OYSC{DEBUGGING_IS_FUN}"
   };
 
   // 自動聚焦輸入框
@@ -42,7 +61,7 @@ export default function Challenge1Page() {
 
       // 延遲跳轉到下一關
       setTimeout(() => {
-        router.push('/challenge/2');
+        router.push('/challenge/eMjVGPIewYYR');
       }, 2000);
     } else {
       setFeedback('FLAG不正確，請再試一次。');
@@ -71,25 +90,21 @@ export default function Challenge1Page() {
         {/* 內容區域 */}
         <div className="w-full max-w-4xl px-6 py-8 bg-gradient-to-b from-gray-900/70 to-black/70 rounded-lg shadow-2xl mx-auto mb-8">
           {/* 題目描述 */}
-          <div className="mb-8">
-            <pre className="text-lg whitespace-pre-wrap font-mono leading-relaxed">
-              {challenge.description}
+          <div className="mb-6 text-lg font-mono">
+            {challenge.description}
+          </div>
+
+          {/* 代碼區塊 - 使用樣式模擬 Markdown 代碼塊 */}
+          <div className="mb-6 relative">
+            <div className="absolute top-0 left-0 px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-t-md">python</div>
+            <pre className="bg-gray-800 p-4 rounded-md text-white overflow-x-auto font-mono text-sm leading-loose mt-6">
+              <code>{challenge.code}</code>
             </pre>
           </div>
 
-          {/* 圖片區域 */}
-          <div className="mb-10 flex justify-center">
-            {challenge.image && (
-              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
-                <Image
-                  src={challenge.image}
-                  alt="凱薩密碼參考圖"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-lg"
-                />
-              </div>
-            )}
+          {/* 提示信息 */}
+          <div className="mb-8 text-yellow-300 italic">
+            {challenge.hint}
           </div>
 
           {/* 輸入區域 */}
@@ -127,6 +142,10 @@ export default function Challenge1Page() {
         </div>
       </div>
 
+      {/* 底部信息 */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
+        © 2025 OhYeahSeC Challenge
+      </div>
     </div>
   );
 }
