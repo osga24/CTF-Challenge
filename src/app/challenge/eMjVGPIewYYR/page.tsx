@@ -1,7 +1,7 @@
 // src/app/challenge/6/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../../components/LetterGlitch';
 
@@ -11,14 +11,15 @@ export default function Challenge6Page() {
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const [downloadClicked, setDownloadClicked] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // 題目內容
   const challenge = {
     title: "眾裡尋他",
     description: "系統日誌中充滿了大量的資訊，但其中隱藏著重要的機密。下載這份日誌文件，並在大量的資訊中找到隱藏的FLAG。",
-    flag: "OYSC{F1L3_S34RCH_M4ST3R}" // 請確保這與你log.txt文件中的FLAG一致
+    flag: "OYSC{F1L3_S34RCH_M4ST3R}", // 請確保這與你log.txt文件中的FLAG一致
+    hint: "提示：仔細查看每一行，FLAG可能藏在不起眼的地方"
   };
 
   // 自動聚焦輸入框
@@ -50,7 +51,7 @@ export default function Challenge6Page() {
   };
 
   // 處理FLAG提交
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 驗證答案 - 去除頭尾空格後進行比較

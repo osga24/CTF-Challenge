@@ -1,26 +1,25 @@
-// src/app/challenge/3/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第一關挑戰頁面
-export default function Challenge1Page() {
-  const level = 1;
+// 第三關挑戰頁面
+export default function Challenge3Page() {
+  const level = 3;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 第一關題目內容
-const challenge = {
-  title: "隱藏的訊息",
-  description: "你發現了一段奇怪的編碼文本，這看起來是使用 Base64 編碼的某種訊息。試著解碼它，找出隱藏的旗幟。\n\n編碼文本: T1lTQ3tCQVNFNjRfSVNfTk9UX0VOQ1JZUFRJT05fQlVUX0VOQ09ESU5HfQ==\n\n提示: 這種編碼方式常用於在純文本環境中傳輸二進制數據。",
-  flag: "OYSC{BASE64_IS_NOT_ENCRYPTION_BUT_ENCODING}",
-  image: "/images/base.png" // 可選的說明圖片
-};
+  // 第三關題目內容
+  const challenge = {
+    title: "隱藏的訊息",
+    description: "你發現了一段奇怪的編碼文本，這看起來是使用 Base64 編碼的某種訊息。試著解碼它，找出隱藏的旗幟。\n\n編碼文本: T1lTQ3tCQVNFNjRfSVNfTk9UX0VOQ1JZUFRJT05fQlVUX0VOQ09ESU5HfQ==\n\n提示: 這種編碼方式常用於在純文本環境中傳輸二進制數據。",
+    flag: "OYSC{BASE64_IS_NOT_ENCRYPTION_BUT_ENCODING}",
+    image: "/images/base.png" // 可選的說明圖片
+  };
 
   // 自動聚焦輸入框
   useEffect(() => {
@@ -29,8 +28,8 @@ const challenge = {
     }
   }, []);
 
- // 處理FLAG提交
-  const handleSubmit = (e) => {
+  // 處理FLAG提交
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 驗證答案 - 去除頭尾空格後進行比較
@@ -83,7 +82,7 @@ const challenge = {
               <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
                 <Image
                   src={challenge.image}
-                  alt="凱薩密碼參考圖"
+                  alt="Base64編碼參考圖"
                   fill
                   style={{ objectFit: 'cover' }}
                   className="rounded-lg"
@@ -127,6 +126,10 @@ const challenge = {
         </div>
       </div>
 
+      {/* 底部信息 */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
+        © 2025 OhYeahSeC Challenge
+      </div>
     </div>
   );
 }

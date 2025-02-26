@@ -1,25 +1,25 @@
 // src/app/challenge/4/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第一關挑戰頁面
-export default function Challenge1Page() {
-  const level = 1;
+// 第四關挑戰頁面
+export default function Challenge4Page() {
+  const level = 4;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 第一關題目內容
-const challenge = {
-  title: "二進制密語",
-  description: "你攔截到一串二進制密碼，這似乎是某種重要訊息被轉換成二進制表示。請將它轉換回 ASCII 文本，找出隱藏的旗幟。\n\n二進制密碼:\n01001111 01011001 01010011 01000011 01111011 01000010 01001001 01001110 01000001 01010010 01011001 01011111 01010100 01001111 01011111 01000001 01010011 01000011 01001001 01001001 01011111 01001001 01010011 01011111 01000110 01010101 01001110 01111101\n\n提示: 每8位二進制數字代表一個 ASCII 字符。",
-  flag: "OYSC{BINARY_TO_ASCII_IS_FUN}",
-};
+  // 第四關題目內容
+  const challenge = {
+    title: "二進制密語",
+    description: "你攔截到一串二進制密碼，這似乎是某種重要訊息被轉換成二進制表示。請將它轉換回 ASCII 文本，找出隱藏的旗幟。\n\n二進制密碼:\n01001111 01011001 01010011 01000011 01111011 01000010 01001001 01001110 01000001 01010010 01011001 01011111 01010100 01001111 01011111 01000001 01010011 01000011 01001001 01001001 01011111 01001001 01010011 01011111 01000110 01010101 01001110 01111101\n\n提示: 每8位二進制數字代表一個 ASCII 字符。",
+    flag: "OYSC{BINARY_TO_ASCII_IS_FUN}",
+  };
 
   // 自動聚焦輸入框
   useEffect(() => {
@@ -28,8 +28,8 @@ const challenge = {
     }
   }, []);
 
- // 處理FLAG提交
-  const handleSubmit = (e) => {
+  // 處理FLAG提交
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 驗證答案 - 去除頭尾空格後進行比較
@@ -76,21 +76,6 @@ const challenge = {
             </pre>
           </div>
 
-          {/* 圖片區域 */}
-          <div className="mb-10 flex justify-center">
-            {challenge.image && (
-              <div className="relative w-full max-w-2xl h-[300px] rounded-lg overflow-hidden border-2 border-purple-500/30">
-                <Image
-                  src={challenge.image}
-                  alt="凱薩密碼參考圖"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-lg"
-                />
-              </div>
-            )}
-          </div>
-
           {/* 輸入區域 */}
           <form onSubmit={handleSubmit} className="mt-8">
             <div className="flex flex-col items-center space-y-4">
@@ -126,6 +111,10 @@ const challenge = {
         </div>
       </div>
 
+      {/* 底部信息 */}
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/50">
+        © 2025 OhYeahSeC Challenge
+      </div>
     </div>
   );
 }

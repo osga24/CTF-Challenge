@@ -1,7 +1,7 @@
 // src/app/challenge/5/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../../components/LetterGlitch';
 
@@ -10,7 +10,7 @@ export default function Challenge5Page() {
   const level = 5;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // 題目內容
@@ -48,8 +48,8 @@ if __name__ = "__main__":
     }
   }, []);
 
- // 處理FLAG提交
-  const handleSubmit = (e) => {
+  // 處理FLAG提交
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 驗證答案 - 去除頭尾空格後進行比較

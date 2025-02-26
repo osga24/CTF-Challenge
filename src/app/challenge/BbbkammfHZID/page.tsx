@@ -1,45 +1,40 @@
 // src/app/challenge/7/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
 
-// 第七關挑戰頁面
 export default function Challenge7Page() {
   const level = 7;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // 題目內容
   const challenge = {
     title: "視覺密碼學",
     description: "你截獲了一組神秘的圖片，據說只有將它們正確疊加才能找到隱藏的訊息。黑客留下了一個名為 layer1.png 和 layer2.png 的圖層，試著找出它們的秘密。",
-    flag: "OYSC{V1SU4L_CRYPT0_M4ST3R}" // 確保這與隱藏在圖片中的FLAG一致
+    flag: "OYSC{V1SU4L_CRYPT0_M4ST3R}"
   };
 
-  // 自動聚焦輸入框
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
 
-  // 處理FLAG提交
-  const handleSubmit = (e) => {
+  // 添加 FormEvent 类型注解
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 驗證答案 - 去除頭尾空格後進行比較
     const trimmedInput = userInput.trim();
     const correctFlag = challenge.flag.trim();
 
     if (trimmedInput === correctFlag) {
       setFeedback('恭喜！FLAG正確。正在前往下一關...');
 
-      // 延遲跳轉到下一關
       setTimeout(() => {
         router.push('/challenge/WCwfbPFLfcdd');
       }, 2000);
