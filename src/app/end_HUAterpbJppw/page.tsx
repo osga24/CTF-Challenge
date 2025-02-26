@@ -1,7 +1,7 @@
-// src/app/challenge/complete/page.tsx
+// src/app/challenge/end_HUAterpbJppw/page.tsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import LetterGlitch from '../components/LetterGlitch';
 
@@ -14,6 +14,7 @@ export default function ChallengeCompletePage() {
   const [buttonVisible, setButtonVisible] = useState(false);
   const [stars, setStars] = useState([]);
   const router = useRouter();
+  const scrollRef = useRef(null); // 添加這一行以解決未使用的 useRef 問題
 
   // ASCII 蛋糕圖案（增強版）
   const asciiCake = `
@@ -90,7 +91,6 @@ export default function ChallengeCompletePage() {
   const handleGoHome = () => {
     router.push('/');
   };
-
   return (
     <div className="relative min-h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
