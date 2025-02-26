@@ -1,7 +1,13 @@
 // src/app/challenge/10/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  FormEvent,
+  useCallback
+} from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LetterGlitch from '../../components/LetterGlitch';
@@ -11,14 +17,15 @@ export default function Challenge10Page() {
   const level = 10;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
-  const inputRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // 題目內容
   const challenge = {
     title: "最後的挑戰",
     description: "恭喜你到達最終關卡！在這最後的挑戰中，你將運用你的社交媒體搜索技巧。請查看下方照片，找出這個人的Instagram帳號，並提交作為最終的FLAG。",
-    flag: "os324_" // 替換為你的Instagram用戶名
+    flag: process.env.NEXT_PUBLIC_FINAL_CHALLENGE_FLAG || "os324_" // 使用環境變數
   };
 
   // 自動聚焦輸入框
@@ -29,11 +36,23 @@ export default function Challenge10Page() {
   }, []);
 
   // 處理FLAG提交
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 驗證答案 - 去除頭尾空格後進行比較
+    // 防止重複提交
+    if (isSubmitting) return;
+
+    // 驗證是否為空
     const trimmedInput = userInput.trim();
+    if (!trimmedInput) {
+      setFeedback('請輸入Instagram用戶名');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFeedback('');
+
+    // 驗證答案 - 去除頭尾空格後進行比較
     const correctFlag = challenge.flag.trim();
 
     if (trimmedInput === correctFlag) {
@@ -45,17 +64,20 @@ export default function Challenge10Page() {
       }, 2000);
     } else {
       setFeedback('用戶名不正確，請再試一次。');
+
+      // 重置提交狀態
       setTimeout(() => {
         setFeedback('');
+        setIsSubmitting(false);
       }, 3000);
     }
-  };
+  }, [userInput, isSubmitting, challenge.flag, router]);
 
   return (
     <div className="relative h-screen bg-black overflow-hidden text-white">
       {/* 背景效果 */}
       <div className="absolute inset-0 opacity-20">
-      <LetterGlitch
+        <LetterGlitch
           glitchColors={['#1a3b4c', '#4dc3a1', '#3498db']}
           glitchSpeed={50}
           centerVignette={false}
@@ -111,13 +133,19 @@ export default function Challenge10Page() {
                   placeholder="Instagram用戶名..."
                   spellCheck="false"
                   autoComplete="off"
+                  disabled={isSubmitting}
                 />
               </div>
               <button
                 type="submit"
-                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-lg font-bold rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
+                disabled={isSubmitting}
+                className={`px-8 py-3 text-lg font-bold rounded-lg transition-all duration-300 transform
+                  ${isSubmitting
+                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-purple-700 hover:to-pink-600 hover:scale-105'
+                  }`}
               >
-                提交
+                {isSubmitting ? '驗證中...' : '提交'}
               </button>
 
               {/* 反饋信息 */}
