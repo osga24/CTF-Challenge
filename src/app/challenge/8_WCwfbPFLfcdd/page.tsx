@@ -14,7 +14,7 @@ export default function Challenge8Page() {
   const router = useRouter();
 
   // 登入平台網址
-  const loginURL = "secret-system.ohyeahsec.org"; // 替換為你的實際登入頁面URL
+  const loginURL = "https://secret-system.ohyeahsec.org/"; // 替換為你的實際登入頁面URL
 
   // 題目內容
   const challenge = {
