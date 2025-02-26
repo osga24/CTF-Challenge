@@ -26,8 +26,13 @@ export default function Page() {  // 修改 page 为 Page
     <div className="relative h-screen bg-black overflow-hidden">
       {/* LetterGlitch as background */}
       <div className="absolute inset-0 opacity-30">
-        <LetterGlitch />
-      </div>
+      <LetterGlitch
+          glitchColors={['#1a3b4c', '#4dc3a1', '#3498db']}
+          glitchSpeed={50}
+          centerVignette={false}
+          outerVignette={true}
+          smooth={true}
+        />      </div>
 
       {/* Centered content with character-level blur text effects */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center">
