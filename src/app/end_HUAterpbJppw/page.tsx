@@ -171,7 +171,7 @@ export default function ChallengeCompletePage() {
                 <p>成功完成 <span className="text-yellow-200 font-semibold">OhYeahSeC CTF Challenge</span> 的所有關卡</p>
                 <p>完成時間：<span className="text-yellow-200 font-semibold">{new Date().toLocaleDateString()}</span></p>
                 <div className="pt-4 border-t border-yellow-500/30 mt-4">
-                  <p className="italic text-yellow-100/70">&ldquo;知識是防禦的第一道防線，好奇心是進步的原動力&rdquo;</p>
+                  <p className="italic text-yellow-100/70">知識是防禦的第一道防線，好奇心是進步的原動力</p>
                 </div>
               </div>
             </div>
