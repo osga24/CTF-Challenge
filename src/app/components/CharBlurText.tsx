@@ -13,13 +13,11 @@ const CharBlurText = ({
   animationDelay?: number;
 }) => {
   const [clearChars, setClearChars] = useState<string[]>([]);
-  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (text) {
       const chars = text.split('');
       const timer = setTimeout(() => {
-        setVisible(true);
         let currentIndex = 0;
         const revealInterval = setInterval(() => {
           if (currentIndex < chars.length) {
