@@ -8,7 +8,7 @@ import LetterGlitch from '../../components/LetterGlitch';
 
 // 第一關挑戰頁面
 export default function Challenge1Page() {
-  const level = 1;
+  const level = 2;
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
