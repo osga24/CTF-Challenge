@@ -44,8 +44,8 @@ OhYeahSeC CTF Challenge 是一個互動式網頁平台，提供一系列資訊�
 
 1. 克隆儲存庫
    ```bash
-   git clone https://github.com/yourusername/ctf-challenge.git
-   cd ctf-challenge
+   git clone https://github.com/osga24/OhYeahSeC-CTF-Challenge.git
+   cd OhYeahSeC-CTF-Challenge
    ```
 
 2. 安裝依賴
